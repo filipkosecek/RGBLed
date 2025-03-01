@@ -2,6 +2,6 @@
 #define DEFINE_H
 
 #define NUMLEDS 60
-#define STRIP_PIN 15
+#define STRIP_PIN 0
 
 #endif
