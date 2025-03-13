@@ -31,7 +31,7 @@ pico_enable_stdio_usb(main 1)
 
 # Add the standard library to the build
 target_link_libraries(main pico_stdlib)
-target_link_libraries(main pico_stdlib hardware_pio hardware_sync hardware_adc)
+target_link_libraries(main pico_stdlib hardware_pio hardware_sync hardware_adc hardware_pio hardware_clocks)
 
 pico_add_extra_outputs(main)
 
