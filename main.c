@@ -14,6 +14,7 @@
 #define CLKDIV 48000000
 
 int main(void){
+	uint32_t interrupt_status;
 	uint16_t result;
 
 	stdio_init_all();
@@ -21,13 +22,19 @@ int main(void){
 	strip_init();
 
 	while (1) {
+		// wait for the interrupt
 		__wfi();
+
 		adc_get_atomic(&result);
-		strip_clear();
 		for (uint8_t i = 0; i < NUMLEDS; ++i) {
 			strip_set_led_color(i, (uint8_t) result, 0, 100);
 		}
+
+		// atomically update the strip
+		interrupt_status = save_and_disable_interrupts();
+		strip_clear();
 		strip_update();
+		restore_interrupts(interrupt_status);
 	}
 	return 0;
 }
