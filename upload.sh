@@ -19,4 +19,4 @@ if [[ $? -ne 0 ]]; then
 	exit 1
 fi
 cp main.uf2 /mnt
-sudo umout /mnt
+sudo umount /mnt
