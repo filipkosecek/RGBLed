@@ -30,7 +30,6 @@ void adc_get_atomic(uint16_t *result)
 void adc_driver_init(uint pin, uint input, float clkdiv)
 {
 	adc_init();
-	adc_gpio_init(pin);
 	adc_select_input(input);
 	adc_fifo_setup(true, false, 1, false, true);
 	adc_set_clkdiv(clkdiv);
