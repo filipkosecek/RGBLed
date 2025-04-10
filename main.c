@@ -9,7 +9,6 @@
 #include "picoRGB.h"
 #include "define.h"
 
-#define ADC_PIN 31
 #define INPUT 0
 #define CLKDIV 48000000
 
@@ -18,7 +17,7 @@ int main(void){
 	uint16_t result;
 
 	stdio_init_all();
-	adc_driver_init(ADC_PIN, INPUT, CLKDIV);
+	adc_driver_init(INPUT, CLKDIV);
 	strip_init();
 
 	while (1) {

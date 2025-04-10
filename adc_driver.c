@@ -27,7 +27,7 @@ void adc_get_atomic(uint16_t *result)
 	restore_interrupts(interrupt_status);
 }
 
-void adc_driver_init(uint pin, uint input, float clkdiv)
+void adc_driver_init(uint input, float clkdiv)
 {
 	adc_init();
 	adc_select_input(input);
