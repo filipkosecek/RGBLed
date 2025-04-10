@@ -9,25 +9,24 @@
 #include "picoRGB.h"
 #include "define.h"
 
-#define INPUT 0
 #define CLKDIV 48000000
 
 int main(void){
 	uint32_t interrupt_status;
-	uint16_t result;
+	uint16_t result[N_VALUES];
 
 	stdio_init_all();
-	adc_driver_init(INPUT, CLKDIV);
+	adc_driver_init(CLKDIV);
 	strip_init();
 
 	while (1) {
 		// wait for the interrupt
 		__wfi();
 
-		adc_get_atomic(&result);
+		adc_get_atomic(result);
 		strip_clear();
 		for (uint8_t i = 0; i < NUMLEDS; ++i) {
-			strip_set_led_color(i, (uint8_t) result, 0, 100);
+			strip_set_led_color(i, (uint8_t) result[0], result[1], result[2]);
 		}
 
 		// atomically update the strip
