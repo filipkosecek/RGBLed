@@ -25,6 +25,7 @@ void adc_get_atomic(uint16_t *result)
 	interrupt_status = save_and_disable_interrupts();
 	for (size_t i = 0; i < N_VALUES; ++i)
 		result[i] = values[i];
+	adc_fifo_drain();
 	restore_interrupts(interrupt_status);
 }
 
