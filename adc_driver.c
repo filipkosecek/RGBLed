@@ -11,9 +11,16 @@
 #include "adc_driver.h"
 
 static volatile uint16_t values[N_VALUES];
+static volatile bool first = true;
 
 static void adc_irq_handler(void)
 {
+	if (first) {
+		first = false;
+		adc_fifo_get();
+		return;
+	}
+
 	for (size_t i = 0; i < N_VALUES; ++i)
 		values[i] = adc_fifo_get();
 }
@@ -25,7 +32,6 @@ void adc_get_atomic(uint16_t *result)
 	interrupt_status = save_and_disable_interrupts();
 	for (size_t i = 0; i < N_VALUES; ++i)
 		result[i] = values[i];
-	adc_fifo_drain();
 	restore_interrupts(interrupt_status);
 }
 
