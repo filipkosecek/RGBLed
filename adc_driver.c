@@ -32,6 +32,7 @@ void adc_get_atomic(uint16_t *result)
 void adc_driver_init(float clkdiv)
 {
 	adc_init();
+	adc_select_input(3);
 	adc_set_round_robin(ADC_INPUT_MASK);
 	adc_fifo_setup(true, false, 3, false, true);
 	adc_set_clkdiv(clkdiv);
