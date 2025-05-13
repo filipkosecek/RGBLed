@@ -1,3 +1,6 @@
+#ifndef ADC_DRIVER_H
+#define ADC_DRIVER_H
+
 #include <stdint.h>
 
 #define N_VALUES 3
@@ -5,3 +8,5 @@
 
 void adc_driver_init(float clkdiv);
 void adc_get_atomic(uint16_t *result);
+
+#endif
