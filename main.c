@@ -12,11 +12,13 @@
 #define CLKDIV 47900000
 
 int main(void){
+	static uint16_t result[N_VALUES];
 	uint32_t interrupt_status;
-	uint16_t result[N_VALUES];
 
 	// Initialize the relevant units (stdio for debugging purposes).
+#ifdef DEBUG
 	stdio_init_all();
+#endif
 	adc_driver_init(CLKDIV);
 	strip_init();
 
