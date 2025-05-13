@@ -15,16 +15,19 @@ int main(void){
 	uint32_t interrupt_status;
 	uint16_t result[N_VALUES];
 
+	// Initialize the relevant units (stdio for debugging purposes).
 	stdio_init_all();
 	adc_driver_init(CLKDIV);
 	strip_init();
 
 	while (1) {
-		// wait for the interrupt
+		// Wait in a low-power mode for the interrupt.
 		__wfi();
 
+		// Fetch the results.
 		adc_get_atomic(result);
 
+		// Atomically update the strip.
 		interrupt_status = save_and_disable_interrupts();
 		strip_clear();
 		for (uint8_t i = 0; i < NUMLEDS; ++i) {
