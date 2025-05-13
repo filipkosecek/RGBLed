@@ -13,3 +13,14 @@ responsible for driving the LED strip
 - `adc_driver` files represent an interrupt-driven ADC driver which
 multiplexes three ADC channels
 - `main.c` - the main file
+
+## Build instructions
+### Debian-based distros
+[PicoSDK](https://github.com/raspberrypi/pico-sdk) must be installed on the
+system and it must be included in the root directory of the project according
+to the manual for the SDK. For building and uploading the firmware, the
+following packages need to be installed (Debian-based distros):
+```
+sudo apt install cmake python3 build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+```
