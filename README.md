@@ -24,3 +24,11 @@ following packages need to be installed (Debian-based distros):
 sudo apt install cmake python3 build-essential gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
 
 ```
+To build the firmware:
+```
+mkdir build
+cd build/
+cmake ..
+make main
+```
+Then upload the `main.uf2` file to the board.
