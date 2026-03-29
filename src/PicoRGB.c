@@ -44,7 +44,6 @@ void strip_init()
 	PIO pio = pio0;
 	int sm = 0;
 	uint offset = pio_add_program(pio, &ws2812_program);
-	char str[12];
 	ws2812_program_init(pio, sm, offset, STRIP_PIN, 800000, false);
 
 	//NUMLEDS = num_leds; //copy num_leds value in the NUMLEDS global variable
