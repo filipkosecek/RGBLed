@@ -24,7 +24,7 @@ set(INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 # Specify the source files.
 add_executable(main
         ${SRC_DIR}/main.c
-        ${SRC_DIR}/PicoRGB.c
+        ${SRC_DIR}/ws2812.c
         ${SRC_DIR}/adc_driver.c
 )
 
