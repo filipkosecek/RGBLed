@@ -1,3 +1,14 @@
+/**
+ * @file ws2812.c
+ *
+ * @author Filip Kosecek
+ *
+ * @copyright Copyright (c) 2025 Filip Kosecek
+ *
+ * Licensed under the MIT License.
+ * See LICENSE file for details.
+ */
+
 #include <stdint.h>
 
 #include <pico/stdlib.h>
