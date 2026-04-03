@@ -9,8 +9,8 @@
  * See LICENSE file for details.
  */
 
-#ifndef PICORGB_H
-#define PICORGB_H
+#ifndef WS2812_H
+#define WS2812_H
 
 #include <stdint.h>
 
