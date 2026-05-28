@@ -1,37 +1,52 @@
-# Generated Cmake Pico project file
-
 cmake_minimum_required(VERSION 3.13)
 
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+# Initialize pico-sdk from Git.
+set(PICO_SDK_FETCH_FROM_GIT on)
 
-# initalize pico_sdk from installed location
-# (note this can come from environment, CMake cache etc)
-set(PICO_SDK_PATH "/opt/pico-sdk")#only true for my machine
+# Include the cmake pico script.
+list(APPEND CMAKE_MODULE_PATH
+        "${CMAKE_CURRENT_LIST_DIR}/cmake"
+)
+include (pico_sdk_import)
 
-# Pull in Raspberry Pi Pico SDK (must be before project)
-include(pico_sdk_import.cmake)
+# Initialize the project.
+project(PicoRGB)
 
-project(PicoRGB C CXX ASM)
+# Initialize the Pico SDK.
+pico_sdk_init(PicoRGB)
 
-# Initialise the Raspberry Pi Pico SDK
-pico_sdk_init()
+set(CMAKE_C_STANDARD 17)
 
-# Add executable. Default name is the project name, version 0.1
+# Set directories.
+set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
+set(INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 
-add_executable(main main.c PicoRGB.c adc_driver.c)
+# Specify the source files.
+add_executable(main
+        ${SRC_DIR}/main.c
+        ${SRC_DIR}/ws2812.c
+        ${SRC_DIR}/adc_driver.c
+)
 
-pico_generate_pio_header(main ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
+# Set the compiler options.
+target_compile_options(main
+        PRIVATE -W -Wall -Wextra -Werror
+)
 
-pico_set_program_name(main "picoRGB")
-pico_set_program_version(main "1.0")
+# Set the include directory.
+target_include_directories(main
+        PRIVATE ${INC_DIR}
+)
 
-pico_enable_stdio_uart(main 0)
-pico_enable_stdio_usb(main 1)
-
-# Add the standard library to the build
-target_link_libraries(main pico_stdlib)
+# Link Pico SDK libraries.
 target_link_libraries(main pico_stdlib hardware_pio hardware_sync hardware_adc hardware_pio hardware_clocks)
 
-pico_add_extra_outputs(main)
+# Compile the PIO program and generate the ws2812.pio.h file.
+pico_generate_pio_header(main ${SRC_DIR}/ws2812.pio)
 
+# Start USB and disable UART.
+pico_enable_stdio_usb(main 1)
+pico_enable_stdio_uart(main 0)
+
+# Create map/bin/hex/uf2 file in addition to ELF.
+pico_add_extra_outputs(main)

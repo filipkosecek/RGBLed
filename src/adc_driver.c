@@ -1,3 +1,14 @@
+/**
+ * @file adc_driver.c
+ *
+ * @author Filip Kosecek
+ *
+ * @copyright Copyright (c) 2025 Filip Kosecek
+ *
+ * Licensed under the MIT License.
+ * See LICENSE file for details.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>

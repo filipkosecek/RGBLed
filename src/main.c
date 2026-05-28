@@ -5,9 +5,7 @@
 #include "hardware/sync.h"
 
 #include "adc_driver.h"
-
-#include "picoRGB.h"
-#include "define.h"
+#include "ws2812.h"
 
 #define CLKDIV 47900000
 
@@ -20,7 +18,7 @@ int main(void){
 	stdio_init_all();
 #endif
 	adc_driver_init(CLKDIV);
-	strip_init();
+        ws2812_init();
 
 	while (1) {
 		// Wait in a low-power mode for the interrupt.
@@ -31,11 +29,10 @@ int main(void){
 
 		// Atomically update the strip.
 		interrupt_status = save_and_disable_interrupts();
-		strip_clear();
-		for (uint8_t i = 0; i < NUMLEDS; ++i) {
-			strip_set_led_color(i, (uint8_t)result[0], (uint8_t)result[1], (uint8_t)result[2]);
+		for (uint8_t i = 0; i < N_LEDS; ++i) {
+			ws2812_set_led(i, (uint8_t)result[0], (uint8_t)result[1], (uint8_t)result[2]);
 		}
-		strip_update();
+		ws2812_write();
 		restore_interrupts(interrupt_status);
 	}
 	return 0;
